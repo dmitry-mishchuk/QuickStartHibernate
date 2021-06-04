@@ -24,11 +24,11 @@ public class App {
         SessionFactory sf = con.buildSessionFactory(bidder1.build());
 
         //Create
-        /*Session session = sf.openSession();
-        Transaction tx = session.beginTransaction();
-        session.save(Bob);
-        tx.commit();
-        session.close();*/
+        Session sessionCreate = sf.openSession();
+        Transaction txCreate = sessionCreate.beginTransaction();
+        sessionCreate.save(Bob);
+        txCreate.commit();
+        sessionCreate.close();
 
         //Read
         Session sessionRead = sf.openSession();
@@ -37,5 +37,21 @@ public class App {
         System.out.println(student1.toString());
         txRead.commit();
         sessionRead.close();
+
+        //Update
+        Session sessionUpdate = sf.openSession();
+        Transaction txUpdate = sessionUpdate.beginTransaction();
+        Bob.setAge(10);
+        Bob.setName("Nick");
+        sessionUpdate.save(Bob);
+        txUpdate.commit();
+        sessionUpdate.close();
+
+        //Delete
+        Session sessionDelete = sf.openSession();
+        Transaction txDelete = sessionDelete.beginTransaction();
+        sessionDelete.delete(Bob);
+        txDelete.commit();
+        sessionDelete.close();
     }
 }
